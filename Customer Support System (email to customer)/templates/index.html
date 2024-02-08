@@ -20,7 +20,9 @@
             </div>
             <div>
                 <label for="translate-comment">Translate Comment in selected language:</label>
-                <input type="radio" name="translate-comment" id="translate-comment">
+                <input type="checkbox" name="translate-comment" id="translate-comment">
+                <label for="translate-email">Translate Email in selected language:</label>
+                <input type="checkbox" name="translate-email" id="translate-email">
             </div>
             <div class="content">
                 {% if comment %}
@@ -41,6 +43,5 @@
             <input type="submit" value="Process" class="submit-button">
         </form>
     </div>
-
 </body>
 </html>

@@ -145,21 +145,18 @@ def index():
 
     if request.method == "POST":
         language = request.form.get("language")
-        print("yes, it is post method", language)
+        translate_comment = request.form.get("translate-comment")
+        translate_email = request.form.get("translate-email")
         comment = generate_customer_comment(products)
         subject = generate_email_subject(comment)
         summary = generate_summary(comment)
         sentiment = analyze_sentiment(comment)
         email = generate_email(comment, subject, summary, sentiment)
 
-        if language != 'en':
+        if translate_email:
             email = get_translation(email, language)
-        
-        translate_comment = request.form.get("translate-comment")
-        print("translate_comment", translate_comment)
 
         if translate_comment:
-            print(translate_comment)
             comment = get_translation(comment, language)
     
     return render_template('index.html', comment = comment, language = language, email = email)

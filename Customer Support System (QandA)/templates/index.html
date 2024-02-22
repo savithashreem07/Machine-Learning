@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Support System</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Customer Support System</h1>
+        <form action="/" method="post" class="form">
+            <!-- Language dropdown menu -->
+            <div class="language-dropdown">
+                <label for="language" class="language">Choose the language of Email to be generated:</label>
+                <select name="language">
+                    <option value="en" {% if language == 'en' %}selected{% endif %}>English</option>
+                    <option value="es" {% if language == 'es' %}selected{% endif %}>Spanish</option>
+                    <option value="pt" {% if language == 'pt' %}selected{% endif %}>Portuguese</option>
+                </select>
+            </div>
+            <div class="content">
+                <div class="result-section">
+                    <div class="textarea">
+                        <label for="question">Ask a Question about selected product:</label>
+                        <textarea id="question" name="question">{{ question }}</textarea>
+                    </div>
+                    <div class="textarea">
+                        <label for="answer">Answer:</label>
+                        <textarea id="answer" name="answer">{{ answer }}</textarea>
+                    </div>
+                </div>
+            </div>
+            <input type="submit" value="Process" class="submit-button">
+        </form>
+    </div>
+
+</body>
+</html>

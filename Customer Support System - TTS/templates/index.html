@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speech to Text to Speech</title>
+</head>
+<body>
+    <h1>Speech to Text to Speech</h1>
+    <form id="speechForm">
+        <label for="speechInput">Enter your speech:</label><br>
+        <input type="text" id="speechInput" name="speechInput"><br>
+        <button type="submit">Submit</button>
+    </form>
+    <div id="response"></div>
+
+    <audio controls id="audioPlayer" style="display: none;"></audio>
+
+    <script>
+        // Function to handle form submission
+        document.getElementById("speechForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Get the speech input from the form
+            var speechInput = document.getElementById("speechInput").value;
+
+            // Send the speech input to the server using fetch
+            fetch("/chatbot", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ query: speechInput })
+            })
+            .then(response => response.text())
+            .then(data => {
+                // Display the response from the server
+                document.getElementById("response").innerText = data;
+
+                // Play the audio response
+                fetch("/audio")
+                .then(response => response.blob())
+                .then(blob => {
+                    var audioUrl = URL.createObjectURL(blob);
+                    var audioPlayer = document.getElementById("audioPlayer");
+                    audioPlayer.src = audioUrl;
+                    audioPlayer.play();
+                });
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+        });
+    </script>
+</body>
+</html>
